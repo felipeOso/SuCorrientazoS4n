@@ -24,8 +24,7 @@ sealed trait ServicioArchivo extends ServicioIOArchivo {
     EitherT(
       Task {
         Try(Source.fromFile(s"src/main/scala/co/com/felipe/osorio/corrientazoS4N/archivosEntrada/$nombreArchivo"))
-      }.map { resultado =>
-          resultado match {
+      }.map { _ match {
             case Success(buffer) => Right(buffer.getLines.toList)
             case Failure(_) => Left(ErrorServicio(Aplicacion, "Error al leer archivo, intente nuevamente."))
           }
@@ -45,7 +44,7 @@ sealed trait ServicioArchivo extends ServicioIOArchivo {
           })
           bufferWriter.close()
         }
-      }.map(resultado => resultado match {
+      }.map( _  match {
         case Success(_) => Right(true)
           case Failure(_) => Left(ErrorServicio(Aplicacion, "Error al escribir archivo, intente nuevamente."))
       }))

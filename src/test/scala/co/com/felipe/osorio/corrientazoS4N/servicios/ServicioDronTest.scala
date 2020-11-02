@@ -8,7 +8,7 @@ class ServicioDronTest  extends AnyWordSpec {
 
   "Test ServicioDron" should {
 
-    "Al realizar la ruta" when {
+    /*"Al realizar la ruta" when {
       "las instrucciones no superan 10 cuadras a la redonda, " +
         "debe ser posible realizar la ruta y retornar la posicion donde finalizo" in{
 
@@ -36,7 +36,7 @@ class ServicioDronTest  extends AnyWordSpec {
         posicionesFinales mustBe posicionesFinalesEsperadas
       }
     }
-
+*/
   }
 
 }
