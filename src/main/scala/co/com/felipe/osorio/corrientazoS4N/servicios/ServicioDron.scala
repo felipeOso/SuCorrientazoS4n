@@ -1,37 +1,51 @@
 package co.com.felipe.osorio.corrientazoS4N.servicios
 
 import cats.data.EitherT
-import co.com.felipe.osorio.corrientazoS4N.dominio.{Coordenada, Entrega, ErrorServicio, Instruccion, N, Posicion, Ruta}
+import co.com.felipe.osorio.corrientazoS4N.dominio._
 import co.com.felipe.osorio.corrientazoS4N.types.Types.EitherTResult
 import monix.eval.Task
 
 import scala.annotation.tailrec
-import scala.collection.IterableOnce.iterableOnceExtensionMethods
 
 trait ServicioDron {
 
   @tailrec
-  final def realizarRuta(ruta: Ruta, posicionInicial:Posicion, listaPosiciones:List[Posicion]= Nil ): EitherTResult[List[Posicion]] = {
+  final def simularRuta(ruta: Ruta, posicionInicial:Posicion, listaPosiciones:List[Posicion]= Nil ): EitherTResult[List[Posicion]] = {
     ruta.listaDomicilios match {
       case Nil =>  EitherT.rightT[Task, ErrorServicio](listaPosiciones)
       case _ =>{
-        val posicion =ServicioDomicilio.entregar(ruta.listaDomicilios.head.listaInstrucciones, posicionInicial)
-        realizarRuta(Ruta(ruta.listaDomicilios.tail),posicion, listaPosiciones ++ List(posicion))
+        val posicion =ServicioEntrega.obtenerPosicionEntrega(ruta.listaDomicilios.head.listaInstrucciones, posicionInicial)
+        simularRuta(Ruta(ruta.listaDomicilios.tail),posicion, listaPosiciones ++ List(posicion))
       }
     }
   }
 
-  def validarRuta(listaInstruccionesPedido : List[String]) = {
-    generarListaInstrucciones(listaInstruccionesPedido)
+  @tailrec
+  final def realizarRuta(dron: Dron): EitherTResult[Dron] = {
+    dron.ruta.listaDomicilios match {
+      case Nil => EitherT.rightT[Task, ErrorServicio](dron)
+      case _ => {
+        val dronActual = relizarEntrega(dron)
+        realizarRuta(dron.copy(ruta = Ruta(dron.ruta.listaDomicilios.tail), posicion= dronActual.posicion, listaPosicionesSalida = dron.listaPosicionesSalida ++ List(dronActual.posicion)))
+      }
+    }
   }
 
-  private def generarListaInstrucciones(lista: List[String]) = {
-    val listaInstrucciones =lista.map(_.map(Instruccion(_)))
-    listaInstrucciones.map(x=>x.map(x=>x))
-   // val entrega = Entrega(listaInstrucciones)
+  @tailrec
+  private final def relizarEntrega(dron: Dron):Dron = {
+     dron.ruta.listaDomicilios.headOption.map(_.listaInstrucciones).getOrElse(Nil) match {
+      case Nil => dron
+      case lista => {
+        val listaInstrucciones = dron.ruta.listaDomicilios.map(_.listaInstrucciones).headOption.map(_.tail).getOrElse(Nil)
+        val posicionActual = ServicioPosicion.actualizarPosicion(dron.posicion, lista.head)
+        relizarEntrega(dron.copy(  posicion =posicionActual, ruta = Ruta(List(Entrega(listaInstrucciones))), listaPosicionesSalida = dron.listaPosicionesSalida ++ List(posicionActual) ))
+      }
+    }
+
   }
 
-  def obtenerDron()
+
+
 }
 
 object ServicioDron extends ServicioDron

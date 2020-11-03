@@ -1,0 +1,48 @@
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(co.com.felipe.osorio.corrientazoS4N.servicios.ServicioValidacionesTest, org.scalatest.tools.Framework$$anon$1@5ff43333, false, [SuiteSelector])[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(co.com.felipe.osorio.corrientazoS4N.servicios.ServicioDronTest, org.scalatest.tools.Framework$$anon$1@5ff43333, false, [SuiteSelector])[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(co.com.felipe.osorio.corrientazoS4N.servicios.ServicioEntregaTest, org.scalatest.tools.Framework$$anon$1@5ff43333, false, [SuiteSelector])[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(co.com.felipe.osorio.corrientazoS4N.servicios.ServicioPosicionTest, org.scalatest.tools.Framework$$anon$1@5ff43333, false, [SuiteSelector])[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(co.com.felipe.osorio.corrientazoS4N.servicios.ServicioIOArchivoTest, org.scalatest.tools.Framework$$anon$1@5ff43333, false, [SuiteSelector])[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32mServicioEntregaTest:[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32mTest ServicioEntrega[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  should Al invocar la funcion obtenerPosicionEntrega[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  - when donde a partir de una entrega que es una lista de instrucciones y una posicion inicialcalcula y retorna la posicion final de la entrega[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32mServicioPosicionTest:[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32mTest ServicioPosicion[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  should Al invocar la funcion actualizarPosicion[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  - when donde a partir de una instruccion modificara la posicion debe retornar una nueva posicion[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32mServicioDronTest:[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32mTest ServicioDron[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  should Al realizar la ruta[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  - when las instrucciones no superan 10 cuadras a la redonda, debe ser posible realizar la ruta y retornar la posicion donde finalizo[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  should Al simular la ruta[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  - when -donde a partir de la ruta y posicion inicial del droncalcula la ruta y devuelve la posicion final de simular realizar la ruta[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32mServicioValidacionesTest:[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32mTest ServicioValidaciones[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  should Al invocar la funcion validarRuta[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  - when -la lista de domicilios es mayor a 3,debe retornar  error en la validacion e indicar una descripcion del error[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  should Al invocar la funcion validarRuta[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  - when -la lista de domicilios es menor a 4,-al simular la ruta las coordenadas se encuentran dentro de la zona permitidaretorna  exito en la vaidacion[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  should Al invocar la funcion validarRuta[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  - when -la lista de domicilios es menor a 4,-al simular la ruta las coordenadas No se encuentran dentro de la zona permitidaretorna  error en la vaidacion con su descripcion[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32mServicioIOArchivoTest:[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32mTest ServicioArchivo[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  should Al invocar la funcion leerArchivo[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  - when - el nombre del archivo no existe, debe retornar un Error indicando el tipo y descripcion del error[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  should Al invocar la funcion leerArchivo[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  - when - el nombre del archivo y el path existe, debe retornar una lista de instrucciones[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  should Al invocar la funcion escribirArchivo[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  - when la escritura es correcta, debe generar un documento txt con el mensaje a escribir y retornar una ejecucion exitosa[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  should Al invocar la funcion escribirArchivo[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32m  - when la escritura es erronea, debe retornar un error[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 1 second, 123 milliseconds.[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 11[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 5, aborted 0[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 11, failed 0, canceled 0, ignored 0, pending 0[0m[0m[0J
+[0m[[0m[0minfo[0m] [0m[0m[32mAll tests passed.[0m[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	co.com.felipe.osorio.corrientazoS4N.servicios.ServicioValidacionesTest[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	co.com.felipe.osorio.corrientazoS4N.servicios.ServicioIOArchivoTest[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	co.com.felipe.osorio.corrientazoS4N.servicios.ServicioEntregaTest[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	co.com.felipe.osorio.corrientazoS4N.servicios.ServicioPosicionTest[0m[0J
+[0m[[0m[0mdebug[0m] [0m[0m	co.com.felipe.osorio.corrientazoS4N.servicios.ServicioDronTest[0m[0J

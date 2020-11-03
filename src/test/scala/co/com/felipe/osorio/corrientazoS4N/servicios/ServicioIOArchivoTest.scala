@@ -13,10 +13,11 @@ class ServicioIOArchivoTest extends AnyWordSpec {
     "Al invocar la funcion leerArchivo" when {
       "- el nombre del archivo no existe, debe retornar un Error indicando el tipo y descripcion del error" in {
 
+        val path = "src/test/scala/co/com/felipe/osorio/corrientazoS4N/archivosEntradaTest"
         val nombreArchivo = "in99.txt"
-        val resultadoErrorEsperado = ErrorServicio(Aplicacion, "Error al leer archivo, intente nuevamente.")
+        val resultadoErrorEsperado = ErrorServicio(Aplicacion, "Error al leer archivo, revise que el archivo se encuentre en el path correspondiente y que existe e intente nuevamente.")
 
-        val resultado = waitForFutureResult(ServicioArchivo.leerArchivo(nombreArchivo).value.runToFuture)
+        val resultado = waitForFutureResult(ServicioArchivo.leerArchivo(nombreArchivo, path).value.runToFuture)
 
         resultado.isRight mustBe false
         resultado.left.get mustBe resultadoErrorEsperado
@@ -24,12 +25,13 @@ class ServicioIOArchivoTest extends AnyWordSpec {
       }
     }
     "Al invocar la funcion leerArchivo" when {
-      "- el nombre del archivo existe, debe retornar una lista de instrucciones" in {
+      "- el nombre del archivo y el path existe, debe retornar una lista de instrucciones" in {
 
+        val path = "src/test/scala/co/com/felipe/osorio/corrientazoS4N/archivosEntradaTest"
         val nombreArchivo = "in01.txt"
-        val resultadoEsperado = List("AAAIDDA", "JHJDFKSDJF")
+        val resultadoEsperado =( "01", List("AAAID", "AAAI", "AADAI"))
 
-        val resultado = waitForFutureResult(ServicioArchivo.leerArchivo(nombreArchivo).value.runToFuture)
+        val resultado = waitForFutureResult(ServicioArchivo.leerArchivo(nombreArchivo, path).value.runToFuture)
 
         resultado.isRight mustBe true
         resultado.right.get mustBe resultadoEsperado
@@ -43,7 +45,7 @@ class ServicioIOArchivoTest extends AnyWordSpec {
         val cuerpoMensaje = List(s"(-2, 4) ${N.toString}", s"(-3, 3) ${S.toString}")
         val path = "src/test/scala/co/com/felipe/osorio/corrientazoS4N/archivosSalidaTest"
 
-        val resultado = waitForFutureResult(ServicioArchivo.escribirArchivo(cuerpoMensaje, 1, path).value.runToFuture)
+        val resultado = waitForFutureResult(ServicioArchivo.escribirArchivo(cuerpoMensaje, "1", path).value.runToFuture)
 
         resultado.isRight mustBe true
         resultado.right.get mustBe true
@@ -56,9 +58,9 @@ class ServicioIOArchivoTest extends AnyWordSpec {
 
         val cuerpoMensaje = List(s"(-2, 4) ${N.toString}", s"(-3, 3) ${S.toString}")
         val path = "src/test/scala/co/com/felipe/osorio/corrientazoS4N/archivosXXXXX"
-        val resultadoErrorEsperado = ErrorServicio(Aplicacion,"Error al escribir archivo, intente nuevamente.")
+        val resultadoErrorEsperado = ErrorServicio(Aplicacion,"Error al escribir archivo verifique e intente nuevamente.")
 
-        val resultado = waitForFutureResult(ServicioArchivo.escribirArchivo(cuerpoMensaje, 18, path).value.runToFuture)
+        val resultado = waitForFutureResult(ServicioArchivo.escribirArchivo(cuerpoMensaje, "18", path).value.runToFuture)
 
         resultado.isLeft mustBe true
         resultado.left.get mustBe resultadoErrorEsperado

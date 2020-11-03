@@ -1,9 +1,9 @@
 package co.com.felipe.osorio.corrientazoS4N.servicios
 
-import co.com.felipe.osorio.corrientazoS4N.dominio.{A, Coordenada, D, E, I, Instruccion, N, O, Posicion, S}
+import co.com.felipe.osorio.corrientazoS4N.dominio._
 
 
-trait ServicioPosicion {
+sealed trait ServicioPosicion {
   def actualizarPosicion(posicionInicial:Posicion, instruccion:Instruccion): Posicion= {
     instruccion match {
       case A => posicionInicial.orientacion match {

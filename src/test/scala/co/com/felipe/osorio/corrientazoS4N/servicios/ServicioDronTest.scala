@@ -1,42 +1,44 @@
 package co.com.felipe.osorio.corrientazoS4N.servicios
 
 import co.com.felipe.osorio.corrientazoS4N.dominio._
+import co.com.felipe.osorio.corrientazoS4N.util.Utils.waitForFutureResult
+import monix.execution.Scheduler.Implicits.global
 import org.scalatest.matchers.must.Matchers.convertToAnyMustWrapper
 import org.scalatest.wordspec.AnyWordSpec
+
 
 class ServicioDronTest  extends AnyWordSpec {
 
   "Test ServicioDron" should {
 
-    /*"Al realizar la ruta" when {
+    "Al realizar la ruta" when {
       "las instrucciones no superan 10 cuadras a la redonda, " +
         "debe ser posible realizar la ruta y retornar la posicion donde finalizo" in{
 
-        val listaEntregas = List(Entrega(List(A,D,I,D,I,A)), Entrega(List(A,A,A,D,I,D,A)))
-        val posicionInicial = Posicion(Coordenada(0,0),N)
-        val posicionesFinalesEsperadas = List(Posicion(Coordenada(-2,-4), N), List(-3,3), S)
+        val resultadoDronEsperado = Right(Dron("01",Posicion(Coordenada(-2,4),O),Ruta(Nil),List(Posicion(Coordenada(-2,4),O))))
+        val dron = Dron("01",Posicion(Coordenada(0,0),N),Ruta(List(Entrega(List(A,A,A,A,I,A,A)))),Nil)
 
-        val posicionesFinales: List[Posicion] = ServicioDron.realizarRuta(listaEntregas, posicionInicial)
+        val resultadoDron= waitForFutureResult(ServicioDron.realizarRuta(dron).value.runToFuture)
 
-        posicionesFinales mustBe posicionesFinalesEsperadas
+        resultadoDron mustBe resultadoDronEsperado
       }
     }
 
 
-    "Al realizar la ruta" when {
-      "las instrucciones superan 10 cuadras a la redonda, " +
-        "debe ser posible realizar la ruta buena y retornar la posicion y la ruta mala no realizarla" in{
+    "Al simular la ruta" when {
+      "-donde a partir de la ruta y posicion inicial del dron" +
+        "calcula la ruta y devuelve la posicion final de simular realizar la ruta" in{
 
-        val listaEntregas = List(Entrega(List(A,D,I,D,I,A)), Entrega(List(A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,A,I,D,A)))
-        val posicionInicial = Posicion(Coordenada(0,0),N)
-        val posicionesFinalesEsperadas = List(Posicion(Coordenada(-2,-4), N))
+        val ruta = Ruta(List(Entrega(List(A,A,A,A,I,A))))
+        val listaPosicionesEsperadas = Right(List(Posicion(Coordenada(-1,4),O)))
 
-        val posicionesFinales: List[Posicion] = ServicioDron.realizarRuta(listaEntregas, posicionInicial)
+        val listaPosiciones= waitForFutureResult(ServicioDron.simularRuta(ruta,Posicion(Coordenada(0,0),N)).value.runToFuture)
 
-        posicionesFinales mustBe posicionesFinalesEsperadas
+        listaPosiciones mustBe listaPosicionesEsperadas
       }
     }
-*/
+
+
   }
 
 }

@@ -3,15 +3,9 @@ package co.com.felipe.osorio.corrientazoS4N.dominio
 
 sealed trait Instruccion
 
-case object A extends Instruccion {
- // override def toString: String = "Avanzar"
-}
-case object D extends Instruccion {
-  //override def toString: String = "Giro 90° a la derecha"
-}
-case object I extends Instruccion {
-  //override def toString: String = "Giro 90° a la Izquierda"
-}
+case object A extends Instruccion
+case object D extends Instruccion
+case object I extends Instruccion
 
 object Instruccion {
   def apply(caracter: Char): Instruccion = {

@@ -12,26 +12,31 @@ import scala.util.{Failure, Success, Try}
 
 sealed trait ServicioIOArchivo {
 
-  def leerArchivo(nombreArchivo: String): EitherTResult[List[String]]
+  def leerArchivo(nombreArchivo: String, path:String): EitherTResult[(String,List[String])]
 
-  def escribirArchivo(lista: List[String], idDron: Int, path: String): EitherTResult[Boolean]
+  def escribirArchivo(lista: List[String], idDron: String, path: String): EitherTResult[Boolean]
 
 }
 
 sealed trait ServicioArchivo extends ServicioIOArchivo {
 
-  def leerArchivo(nombreArchivo: String): EitherTResult[List[String]] = {
+  def leerArchivo(nombreArchivo: String, path:String): EitherTResult[(String, List[String])] = {
     EitherT(
       Task {
-        Try(Source.fromFile(s"src/main/scala/co/com/felipe/osorio/corrientazoS4N/archivosEntrada/$nombreArchivo"))
-      }.map { _ match {
-            case Success(buffer) => Right(buffer.getLines.toList)
-            case Failure(_) => Left(ErrorServicio(Aplicacion, "Error al leer archivo, intente nuevamente."))
+        Try(Source.fromFile(s"$path/$nombreArchivo"))
+      }.map {
+        _ match {
+          case Success(buffer) => {
+            val listaDomicilio = buffer.getLines.toList
+            val idDron = nombreArchivo.substring(2, nombreArchivo.lastIndexOf(".txt"))
+            Right(idDron,listaDomicilio)
           }
-        })
+          case Failure(_) => Left(ErrorServicio(Aplicacion, "Error al leer archivo, revise que el archivo se encuentre en el path correspondiente y que existe e intente nuevamente."))
+        }
+      })
   }
 
-  def escribirArchivo(cuerpoMensaje: List[String], idDron: Int, path:String): EitherTResult[Boolean] = {
+  def escribirArchivo(cuerpoMensaje: List[String], idDron: String, path: String): EitherTResult[Boolean] = {
     EitherT(
       Task {
         Try {
@@ -39,17 +44,16 @@ sealed trait ServicioArchivo extends ServicioIOArchivo {
           bufferWriter.write("== Reporte de entregas ==\n ")
           bufferWriter.newLine()
           cuerpoMensaje.map(mensajeLinea => {
-            bufferWriter.write(mensajeLinea +"\n" )
+            bufferWriter.write(mensajeLinea + "\n")
 
           })
           bufferWriter.close()
         }
-      }.map( _  match {
+      }.map(_ match {
         case Success(_) => Right(true)
-          case Failure(_) => Left(ErrorServicio(Aplicacion, "Error al escribir archivo, intente nuevamente."))
+        case Failure(_) => Left(ErrorServicio(Aplicacion, "Error al escribir archivo verifique e intente nuevamente."))
       }))
   }
-
 
 }
 
